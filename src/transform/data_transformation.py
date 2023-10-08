@@ -71,6 +71,22 @@ class SequenceCreator(BaseEstimator, TransformerMixin):
         return np.array(sequences), np.array(labels)
 
 
+# class DataSplitTransformer(BaseEstimator, TransformerMixin):
+#     """
+#     Splits the data into train test and wraps it for use in the pipeline.
+#     """
+#     def __init__(self, test_size=0.2, random_state=42):
+#         self.test_size = test_size
+#         self.random_state = random_state
+
+#     def fit(self, X, y=None):
+#         return self
+
+#     def transform(self, X, y=None):
+#         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
+#         return X_train, X_test, y_train, y_test
+
+
 class DataScaler(BaseEstimator, TransformerMixin):
     """
     Scales the input data using the MinMaxScaler. Designed to scale 3D data,
