@@ -1,9 +1,12 @@
+import mlflow
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import MinMaxScaler
 from src.data.data_loading import load_data
-from src.transform.data_transformation import data_transform_pipeline
+from src.transform.data_transformation import RULAdder, ConstantColumnDropper, SequenceCreator, DataSplitter, DataScaler
 from src.models.rnn_model import initialize_model, train_model
 
+# # Set MLflow Tracking URI and Experiment
+# mlflow.set_tracking_uri('file:///path/to/directory')
+# mlflow.set_experiment('rb-jet-engine')
 
 def main():
     # 1. Data Loading
