@@ -8,7 +8,6 @@ class RULAdder(BaseEstimator, TransformerMixin):
     """
         Add the RUL column to the DataFrame.
     """
-
     def fit(self, X, y=None):
         return self
 
@@ -33,20 +32,24 @@ class ConstantColumnDropper(BaseEstimator, TransformerMixin):
     """
 
     def fit(self, X, y=None):
-        # Determine columns with constant values and save them as an attribute
-        self.cols_to_drop_ = X.columns[(X.nunique() <= 1) | (X.columns == '(Physical Core Speed) (rpm)')]
+        # Determine columns with constant values
+        self.cols_to_drop_ = X.columns[X.nunique() <= 1].tolist()
+
+        # Always drop the column named '(Physical Core Speed) (rpm)' if it exists
+        if '(Physical Core Speed) (rpm)' in X.columns:
+            self.cols_to_drop_.append('(Physical Core Speed) (rpm)')
+
         return self
 
     def transform(self, X):
         # Drop the columns identified in the fit method
         return X.drop(columns=self.cols_to_drop_)
 
+
 class SequenceCreator(BaseEstimator, TransformerMixin):
     """
     Transforms a DataFrame of engine data into sequences of a given length.
-
-    Attributes:
-    - sequence_length (int): Length of sequences to be created.
+    Each sequence does not include the 'RUL' column.
     """
     def __init__(self, sequence_length=50):
         self.sequence_length = sequence_length
@@ -55,6 +58,27 @@ class SequenceCreator(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, df):
+        """
+        This function will only return sequences.
+        Useful when running predictions or generating sequences.
+        """
+        sequences = []
+
+        for engine in df['Engine'].unique():
+            engine_data = df[df['Engine'] == engine].reset_index(drop=True)
+
+            for i in range(len(engine_data) - self.sequence_length + 1):
+                sequence = engine_data.iloc[i:i+self.sequence_length].drop(['RUL'], axis=1)
+
+                sequences.append(sequence)
+
+        return np.array(sequences)
+
+    def transform_with_labels(self, df):
+        """
+        Use this function outside the pipeline context.
+        This is when you need both the sequences and labels (like during training).
+        """
         sequences = []
         labels = []
 
@@ -71,20 +95,20 @@ class SequenceCreator(BaseEstimator, TransformerMixin):
         return np.array(sequences), np.array(labels)
 
 
-# class DataSplitTransformer(BaseEstimator, TransformerMixin):
-#     """
-#     Splits the data into train test and wraps it for use in the pipeline.
-#     """
-#     def __init__(self, test_size=0.2, random_state=42):
-#         self.test_size = test_size
-#         self.random_state = random_state
+class DataSplitter(BaseEstimator, TransformerMixin):
+    """
+    Splits the data into train test and wraps it for use in the pipeline.
+    """
+    def __init__(self, test_size=0.2, random_state=42):
+        self.test_size = test_size
+        self.random_state = random_state
 
-#     def fit(self, X, y=None):
-#         return self
+    def fit(self, X, y=None):
+        return self
 
-#     def transform(self, X, y=None):
-#         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
-#         return X_train, X_test, y_train, y_test
+    def transform(self, X, y=None):
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=self.test_size, random_state=self.random_state)
+        return X_train, X_test, y_train, y_test
 
 
 class DataScaler(BaseEstimator, TransformerMixin):
@@ -92,7 +116,6 @@ class DataScaler(BaseEstimator, TransformerMixin):
     Scales the input data using the MinMaxScaler. Designed to scale 3D data,
     where the last dimension is considered as features for scaling purposes.
     """
-
     def __init__(self):
         self.scaler = MinMaxScaler()
 

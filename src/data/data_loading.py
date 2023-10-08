@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA_DIR = os.path.join(BASE_DIR, 'raw_data', 'CMaps')
 
 index_names = ['Engine', 'Cycle']
@@ -40,7 +40,7 @@ def load_train_data():
     return load_data('train_FD001.txt', col_names=col_names)
 
 def load_test_data():
-    return load_data('test_FD001.text', col_names=col_names)
+    return load_data('test_FD001.txt', col_names=col_names)
 
 def load_test_RUL():
     return load_data('RUL_FD0001.txt', col_names=col_names)
