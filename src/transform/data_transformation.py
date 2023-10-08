@@ -2,106 +2,90 @@ import os
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.base import BaseEstimator, TransformerMixin
 
-
-def add_RUL_column(df):
+class RULAdder(BaseEstimator, TransformerMixin):
     """
-    The RUL corresponds to the remaining cycles for each unit before the engine fails (target)
-
-    Parameters:
-    - df: The input dataframe containing engine data.
-
-    Returns:
-    - pd.DataFrame: Dataframe with an additional column for RUL.
+        Add the RUL column to the DataFrame.
     """
 
-    # Calculate max_cycles
-    max_cycles = df.groupby('Engine')['Cycle'].max()
+    def fit(self, X, y=None):
+        return self
 
-    # Merge with the original DataFrame
-    merged = df.merge(max_cycles.to_frame(name='max_cycle'), left_on='Engine', right_index=True)
+    def transform(self, X):
+        # Calculate max_cycles
+        max_cycles = X.groupby('Engine')['Cycle'].max()
 
-    # Calculate RUL
-    merged['RUL'] = merged['max_cycle'] - merged['Cycle']
+        # Merge with the original DataFrame
+        X = X.merge(max_cycles.to_frame(name='max_cycle'), left_on='Engine', right_index=True)
 
-    # Drop the max_cycle column
-    merged = merged.drop('max_cycle', axis=1)
+        # Calculate RUL
+        X['RUL'] = X['max_cycle'] - X['Cycle']
 
-    return merged
+        # Drop the max_cycle column and return the resulting DataFrame
+        return X.drop('max_cycle', axis=1)
 
-def drop_constant_cols(df):
+
+class ConstantColumnDropper(BaseEstimator, TransformerMixin):
     """
-    Drop columns that show a constant value.
-    It suggests there is not change as the RUL reaches failure.
-    """
-    # Get columns with zero variance (constant value)
-    cols_to_drop = df.columns[(df.nunique() <= 1) | (df.columns == '(Physical Core Speed) (rpm)')]
-
-    # Drop the constant columns and return the resulting DataFrame
-    return df.drop(columns=cols_to_drop)
-
-from sklearn.model_selection import train_test_split
-
-def create_sequences(df, sequence_length=50):
-    """
-    Create sequences of a given length from the DataFrame.
-
-    Parameters:
-    - df (DataFrame): Input DataFrame containing engine data.
-    - sequence_length (int, optional): Length of sequences to be created. Default is 50.
-
-    Returns:
-    - sequences (numpy.ndarray): 3D array containing sequences.
-    - labels (numpy.ndarray): 1D array containing corresponding labels for sequences.
+    Transformer to drop columns that show a constant value.
+    This suggests there is no change as the RUL reaches failure.
     """
 
-    sequences = []
-    labels = []
+    def fit(self, X, y=None):
+        # Determine columns with constant values and save them as an attribute
+        self.cols_to_drop_ = X.columns[(X.nunique() <= 1) | (X.columns == '(Physical Core Speed) (rpm)')]
+        return self
 
-    for engine in df['Engine'].unique():
-        engine_data = df[df['Engine'] == engine].reset_index(drop=True)
+    def transform(self, X):
+        # Drop the columns identified in the fit method
+        return X.drop(columns=self.cols_to_drop_)
 
-        for i in range(len(engine_data) - sequence_length + 1):
-            sequence = engine_data.iloc[i:i+sequence_length].drop(['RUL'], axis=1)
-            label = engine_data.loc[i+sequence_length-1, 'RUL']
-
-            sequences.append(sequence)
-            labels.append(label)
-
-    return np.array(sequences), np.array(labels)
-
-def split_data(df, test_size=0.2, random_state=42, sequence_length=50):
+class SequenceCreator(BaseEstimator, TransformerMixin):
     """
-    Split the engine data into training and test sequences.
+    Transforms a DataFrame of engine data into sequences of a given length.
 
-    Parameters:
-    - df (DataFrame): Input DataFrame containing engine data.
-    - test_size (float, optional): Proportion of the data to be used as the test set. Default is 0.2.
-    - random_state (int, optional): Random seed for reproducibility. Default is 42.
-    - sequence_length (int, optional): Length of sequences to be created. Default is 50.
+    Attributes:
+    - sequence_length (int): Length of sequences to be created.
+    """
+    def __init__(self, sequence_length=50):
+        self.sequence_length = sequence_length
 
-    Returns:
-    - X_train, X_test (numpy.ndarray): Training and test sequences.
-    - y_train, y_test (numpy.ndarray): Corresponding labels for the training and test sequences.
+    def fit(self, df, y=None):
+        return self
+
+    def transform(self, df):
+        sequences = []
+        labels = []
+
+        for engine in df['Engine'].unique():
+            engine_data = df[df['Engine'] == engine].reset_index(drop=True)
+
+            for i in range(len(engine_data) - self.sequence_length + 1):
+                sequence = engine_data.iloc[i:i+self.sequence_length].drop(['RUL'], axis=1)
+                label = engine_data.loc[i+self.sequence_length-1, 'RUL']
+
+                sequences.append(sequence)
+                labels.append(label)
+
+        return np.array(sequences), np.array(labels)
+
+
+class DataScaler(BaseEstimator, TransformerMixin):
+    """
+    Scales the input data using the MinMaxScaler. Designed to scale 3D data,
+    where the last dimension is considered as features for scaling purposes.
     """
 
-    sequences, labels = create_sequences(df, sequence_length)
-    return train_test_split(sequences, labels, test_size=test_size, random_state=random_state)
+    def __init__(self):
+        self.scaler = MinMaxScaler()
 
+    def fit(self, X, y=None):
+        X_reshaped = X.reshape(-1, X.shape[-1])
+        self.scaler.fit(X_reshaped)
+        return self
 
-def scale_data(X_train, X_test):
-    scaler = MinMaxScaler()
-
-    # Reshape, fit and transform on train data
-    X_train_reshaped = X_train.reshape(-1, X_train.shape[-1])
-    X_train_reshaped_scaled = scaler.fit_transform(X_train_reshaped)
-    X_train_scaled = X_train_reshaped_scaled.reshape(X_train.shape)
-
-    # Only transform on test data using the scaler fitted on train data
-    X_test_reshaped = X_test.reshape(-1, X_test.shape[-1])
-    X_test_reshaped_scaled = scaler.transform(X_test_reshaped)
-    X_test_scaled = X_test_reshaped_scaled.reshape(X_test.shape)
-
-    return X_train_scaled, X_test_scaled, scaler
-
-# X_train_scaled, X_test_scaled, scaler_used = scale_data(X_train, X_test)
+    def transform(self, X):
+        X_reshaped = X.reshape(-1, X.shape[-1])
+        X_reshaped_scaled = self.scaler.transform(X_reshaped)
+        return X_reshaped_scaled.reshape(X.shape)

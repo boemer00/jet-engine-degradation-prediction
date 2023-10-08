@@ -50,12 +50,12 @@ def train_model(model, X_train_scaled, y_train, X_test_scaled, y_test, epochs=10
     - batch_size (int, optional): Batch size for training. Default is 160.
 
     Returns:
-    - history (History): Training history.
+    - Training model.
     """
-    history = model.fit(X_train_scaled, y_train,
-                        validation_data=(X_test_scaled, y_test),
-                        epochs=epochs,
-                        batch_size=batch_size,
-                        verbose=0)
+    model.fit(X_train_scaled, y_train,
+              validation_data=(X_test_scaled, y_test),
+              epochs=epochs,
+              batch_size=batch_size,
+              verbose=0)
 
-    return history
+    return model

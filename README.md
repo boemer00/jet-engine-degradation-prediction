@@ -16,7 +16,7 @@ You can clone this repository using git:
 Then, donwload the dataset directly from [NASA's repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
 
 ## Results
-![](docs/renato-boemer-jet-engine-mse.jpeg)
+
 
 ## References
 A. Saxena, K. Goebel, D. Simon, and N. Eklund, Damage Propagation Modeling for Aircraft Engine Run-to-Failure Simulation, in the Proceedings of the 1st International Conference on Prognostics and Health Management (PHM08), Denver CO, Oct 2008.
