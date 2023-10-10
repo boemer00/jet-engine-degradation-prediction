@@ -1,8 +1,8 @@
 import mlflow
-from sklearn.pipeline import Pipeline
+from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from src.data.data_loading import load_train_data
-from src.transform.data_transformation import RULAdder, ConstantColumnDropper, SequenceCreator, DataSplitter, DataScaler
+from src.transform.data_transformation import RULAdder, ConstantColumnDropper, SequenceCreator, DataScaler
 from src.models.rnn_model import initialize_model, train_model
 
 # # Set MLflow Tracking URI and Experiment
@@ -10,10 +10,11 @@ from src.models.rnn_model import initialize_model, train_model
 # mlflow.set_experiment('rb-jet-engine')
 
 def evaluate_model(model, X_test, y_test):
-    loss, accuracy = model.evaluate(X_test, y_test, verbose=0) # verbose=0 to suppress the progress bar
-    print(f"Test Loss: {loss:.4f}")
-    print(f"Test Accuracy: {accuracy:.4f}")
-    return loss, accuracy
+    predictions = model.predict(X_test)
+    rmse = mean_squared_error(y_test, predictions, squared=False)
+    print(f'Test RMSE: {rmse:.4f}')
+    return rmse
+
 
 def main():
     # 1. Data Loading

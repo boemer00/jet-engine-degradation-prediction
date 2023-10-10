@@ -19,6 +19,7 @@ cffi                         1.15.1
 charset-normalizer           3.2.0
 comm                         0.1.4
 contourpy                    1.1.1
+coverage                     7.3.2
 cycler                       0.11.0
 dacite                       1.8.1
 debugpy                      1.8.0
@@ -127,6 +128,7 @@ rfc3339-validator            0.1.4
 rfc3986-validator            0.1.1
 rpds-py                      0.10.3
 rsa                          4.9
+scikeras                     0.11.0
 scikit-learn                 1.3.1
 scipy                        1.11.2
 seaborn                      0.12.2

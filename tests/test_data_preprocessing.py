@@ -1,48 +1,77 @@
 import pandas as pd
-from transform.data_transformation import add_RUL_column
+import numpy as np
+from src.transform.data_transformation import RULAdder, ConstantColumnDropper
+from src.transform.data_transformation import SequenceCreator, DataScaler
 
-def test_basic_RUL_calculation():
+def test_RULAdder():
+    transformer = RULAdder()
+
+    # Create a sample DataFrame
     df = pd.DataFrame({
-        'Engine': [1, 1, 1],
-        'Cycle': [1, 2, 3]
+        'Engine': [1, 1, 1, 2, 2, 2],
+        'Cycle': [1, 2, 3, 1, 2, 3]
     })
 
-    transformed_df = add_RUL_column(df)
+    # Apply RULAdder
+    transformed_df = transformer.transform(df)
 
-    # Check if RUL is correctly computed
-    assert all(transformed_df['RUL'] == [2, 1, 0])
-
-def test_column_presence():
-    df = pd.DataFrame({
-        'Engine': [1, 1, 1],
-        'Cycle': [1, 2, 3]
-    })
-
-    transformed_df = add_RUL_column(df)
-
-    # Check presence of RUL and absence of max_cycle
+    # Assertions
     assert 'RUL' in transformed_df.columns
     assert 'max_cycle' not in transformed_df.columns
+    assert all(transformed_df.query("Engine == 1")['RUL'] == [2, 1, 0])
+    assert all(transformed_df.query("Engine == 2")['RUL'] == [2, 1, 0])
 
-def test_engine_grouping():
+
+def test_ConstantColumnDropper():
+    transformer = ConstantColumnDropper()
+
+    # Create a sample DataFrame
     df = pd.DataFrame({
-        'Engine': [1, 1, 2, 2, 2],
-        'Cycle': [1, 2, 1, 2, 3]
+        'Engine': [1, 1, 1],
+        'Cycle': [1, 2, 3],
+        'Constant': [5, 5, 5],
+        '(Physical Core Speed) (rpm)': [1000, 1000, 1000]
     })
 
-    transformed_df = add_RUL_column(df)
+    # Apply ConstantColumnDropper
+    transformed_df = transformer.fit_transform(df)
 
-    expected_RULs = [1, 0, 2, 1, 0]
-    assert all(transformed_df['RUL'] == expected_RULs)
+    # Assertions
+    assert 'Constant' not in transformed_df.columns
+    assert '(Physical Core Speed) (rpm)' not in transformed_df.columns
 
-def test_empty_dataframe():
+
+def test_SequenceCreator():
+    transformer = SequenceCreator(sequence_length=2)
+
+    # Create a sample DataFrame
     df = pd.DataFrame({
-        'Engine': [],
-        'Cycle': []
+        'Engine': [1, 1, 2, 2],
+        'Cycle': [1, 2, 1, 2],
+        'RUL': [1, 0, 1, 0]
     })
 
-    transformed_df = add_RUL_column(df)
+    # Apply SequenceCreator
+    sequences, labels = transformer.transform_with_labels(df)
 
-    # Ensure dataframe is still empty and doesn't have RUL column
-    assert transformed_df.empty
-    assert 'RUL' not in transformed_df.columns
+    # Assertions for transform_with_labels method
+    assert sequences.shape == (2, 2, 2)
+    assert all(labels == [0, 0])
+
+
+def test_DataScaler():
+    transformer = DataScaler()
+
+    # Create a sample 3D array
+    X = np.array([
+        [[1, 2], [3, 4]],
+        [[5, 6], [7, 8]]
+    ])
+
+    # Apply DataScaler
+    transformed_X = transformer.fit_transform(X)
+
+    # Assertions
+    assert transformed_X.shape == X.shape
+    assert transformed_X.min() >= 0
+    assert transformed_X.max() <= 1

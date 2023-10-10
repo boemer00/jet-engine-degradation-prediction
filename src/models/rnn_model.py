@@ -11,25 +11,18 @@ def initialize_model(input_shape):
     Returns:
     - model (keras.models.Sequential): The initialised model.
     """
-    # RNN Architecture
     model = Sequential()
-
-    # LSTM layer with L2 regularization
     model.add(layers.LSTM(units=30,
                           activation='tanh',
                           kernel_regularizer=regularizers.l2(0.01),
                           input_shape=input_shape))
 
-    # Dropout layer to reduce overfitting
     model.add(layers.Dropout(0.2))
 
-    # Batch normalisation layer
     model.add(layers.BatchNormalization())
 
-    # Dense output layer
     model.add(layers.Dense(1, activation='linear'))
 
-    # Compile
     model.compile(loss='mean_squared_error',
                   optimizer='rmsprop',
                   metrics=['mean_absolute_error'])
@@ -60,8 +53,8 @@ def train_model(model, X_train_scaled, y_train, X_test_scaled, y_test, epochs=10
 
     return model
 
-import mlflow
-import mlflow.keras
+# import mlflow
+# import mlflow.keras
 
 # def train_model(model, X_train_scaled, y_train, X_test_scaled, y_test, epochs=100, batch_size=160):
 #     """
