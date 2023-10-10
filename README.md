@@ -51,7 +51,8 @@ To run tests for this project, ensure you have Python installed and the required
 ## Results
 Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 14.1751** using random_state=42.
 
-Given that the mean RUL is approximately 108, an RMSE of around 14 represents a typical error of about 13% of the mean RUL. In comparison to the broad range of RUL values (361), this RMSE indicates a relatively modest prediction error. Further iterations and refinements can also be pursued to improve the model's performance.
+Given that the mean RUL is approximately 108, an RMSE of around 14 represents a typical error of about 13% of the mean RUL. In comparison to the broad range of RUL values (361), this RMSE indicates a relatively modest prediction error
+. Further iterations and refinements can also be pursued to improve the model's performance.
 
 ## References
 A. Saxena, K. Goebel, D. Simon, and N. Eklund, *Damage Propagation Modeling for Aircraft Engine Run-to-Failure Simulation*, in the Proceedings of the 1st International Conference on Prognostics and Health Management (PHM08), Denver CO, Oct 2008.
