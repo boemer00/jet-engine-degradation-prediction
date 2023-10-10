@@ -15,6 +15,36 @@ You can clone this repository using git:
 
 Then, donwload the dataset directly from [NASA's repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
 
+## Model Architecture
+This model is a simple recurrent neural network (RNN) constructed using Keras. The architecture can be described as follows:
+
+**LSTM Layer**
+
+- Type: Long Short-Term Memory (LSTM) layer.
+- Units: 30 LSTM units.
+- Activation: Hyperbolic Tangent (tanh) activation function.
+- Regularization: L2 regularization with a coefficient of 0.01 applied to the kernel.
+- Input Shape: Variable, as per input_shape (which represents (timesteps, features)).
+
+**Dropout Layer**
+
+- Dropout Rate: 20% dropout rate, which means during training, 20% of the units in the previous layer are randomly set to 0 at each update cycle. This is a regularization technique to prevent overfitting.
+
+**Batch Normalization Layer**
+
+This layer normalizes the activations of the previous layer at each batch, which can help in speeding up the training process and stabilizing the training of deep networks.
+
+**Dense Layer**
+
+- Units: A single unit.
+- Activation: Linear activation function, which means the output is the raw weighted sum of the inputs.
+
+**Compilation Details**
+
+- Loss Function: Mean Squared Error (MSE) which is suitable for regression tasks.
+- Optimizer: RMSprop optimizer. RMSprop adjusts the Adagrad method in a very simple way to reduce its aggressive, monotonically decreasing learning rate.
+- Metrics: The model tracks Mean Absolute Error (MAE) as a metric, which provides a straightforward way to observe the average error in predictions.
+
 ## Running Tests
 To run tests for this project, ensure you have Python installed and the required packages from ```requirements.txt```. Navigate to the project directory and activate a virtual environment (recommended). Use the pytest command to execute tests. For detailed output, use ```pytest -v```. If using pytest-cov for test coverage, view the report with ```pytest --cov=src```
 
