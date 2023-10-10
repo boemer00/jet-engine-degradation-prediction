@@ -46,7 +46,7 @@ This layer normalizes the activations of the previous layer at each batch, which
 - Metrics: The model tracks Mean Absolute Error (MAE) as a metric, which provides a straightforward way to observe the average error in predictions.
 
 ## Running Tests
-To run tests for this project, ensure you have Python installed and the required packages from ```requirements.txt```. Navigate to the project directory and activate a virtual environment (recommended). Use the pytest command to execute tests. For detailed output, use ```pytest -v```. If using pytest-cov for test coverage, view the report with ```pytest --cov=src```
+To run tests for this project, ensure you have Python installed and the required packages from *requirements.txt*. Navigate to the project directory and activate a virtual environment (recommended). Use the pytest command to execute tests. For detailed output, use ```pytest -v```. If using pytest-cov for test coverage, view the report with ```pytest --cov=src```
 
 ## Results
 Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 14.1751** using random_state=42.
