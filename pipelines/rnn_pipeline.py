@@ -1,4 +1,6 @@
+import os
 import mlflow
+from datetime import datetime
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
 from src.data.data_loading import load_train_data
@@ -47,8 +49,13 @@ def main():
     # 6. Model Evaluation
     evaluate_model(trained_model, X_test_scaled, y_test)
 
-    # 7. Save the trained model (uncomment if needed)
-    # save_model(trained_model, "path_to_save_model.h5")
+    # 7. Save the trained model with timestamped filename
+    save_dir = './models/saved'
+    os.makedirs(save_dir, exist_ok=True)
+
+    timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+    save_path = f'{save_dir}/model_{timestamp}.h5'
+    save_model(trained_model, save_path)
 
 if __name__ == "__main__":
     main()
