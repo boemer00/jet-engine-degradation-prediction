@@ -1,0 +1,26 @@
+paths:
+  raw_data: "./raw_data/CMaps"
+  rnn_pipeline: "./pipelines/rnn_pipeline.py"
+  notebooks: "./notebooks"
+  src_data: "./src/data"
+  src_models: "./src/models"
+  src_transform: "./src/transform"
+  tests: "./tests"
+
+model:
+  rnn:
+    lstm:
+      units: 30
+      activation: 'tanh'
+      regularizer:
+        type: 'l2'
+        value: 0.01
+    dropout: 0.2
+    batch_normalization: true
+    dense:
+      units: 1
+      activation: 'linear'
+    compile:
+      loss: 'mean_squared_error'
+      optimizer: 'rmsprop'
+      metrics: ['mean_absolute_error']
