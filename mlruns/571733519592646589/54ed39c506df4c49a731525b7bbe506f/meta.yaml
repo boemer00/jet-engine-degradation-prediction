@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/54ed39c506df4c49a731525b7bbe506f/artifacts
+end_time: 1697117471133
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: 54ed39c506df4c49a731525b7bbe506f
+run_name: big-goose-678
+run_uuid: 54ed39c506df4c49a731525b7bbe506f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1697117461169
+status: 4
+tags: []
+user_id: renatoboemer

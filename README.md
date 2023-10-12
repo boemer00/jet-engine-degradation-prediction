@@ -45,6 +45,24 @@ This layer normalizes the activations of the previous layer at each batch, which
 - Optimizer: RMSprop optimizer. RMSprop adjusts the Adagrad method in a very simple way to reduce its aggressive, monotonically decreasing learning rate.
 - Metrics: The model tracks Mean Absolute Error (MAE) as a metric, which provides a straightforward way to observe the average error in predictions.
 
+## RNN Pipeline Parameterisation
+You can customise the training of the RNN model through command-line parameters when running the pipeline script. While the script provides a set of default configurations, you can override them using arguments.
+
+**Available Command Line Parameters:**
+The parameters you can adjust via command line include, but are not limited to:
+```--learning_rate```
+```--epochs```
+```--batch_size```
+(Any other parameters you've included in the argparse setup)
+
+**Usage Example:**
+To override the default learning rate, run:
+```python pipelines/rnn_pipeline.py --learning_rate 0.1``
+
+**Default Configurations:**
+For a comprehensive list of default configurations and their values, please refer to the ```config.yaml``` file in the project directory.
+
+
 ## Running Tests
 To run tests for this project, ensure you have Python installed and the required packages from *requirements.txt*. Navigate to the project directory and activate a virtual environment (recommended). Use the pytest command to execute tests. For detailed output, use ```pytest -v```. If using pytest-cov for test coverage, view the report with ```pytest --cov=src```
 
@@ -67,9 +85,9 @@ This project utilises MLflow for experiment tracking within the `pipeline.py` sc
    - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
 
 ## Results
-Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 14.1751** using random_state=42.
+Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 12.8** using random_state=42.
 
-Given that the mean RUL is approximately 108, an RMSE of around 14 represents a typical error of about 13% of the mean RUL. In comparison to the broad range of RUL values (361), this RMSE indicates a relatively modest prediction error
+Given that the mean RUL is approximately 108, an RMSE of around 12 represents a typical error of about 13% of the mean RUL. In comparison to the broad range of RUL values (361), this RMSE indicates a relatively modest prediction error
 . Further iterations and refinements can also be pursued to improve the model's performance.
 
 ## References

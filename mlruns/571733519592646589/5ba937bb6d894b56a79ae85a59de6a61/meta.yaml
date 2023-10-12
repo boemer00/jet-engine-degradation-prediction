@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/5ba937bb6d894b56a79ae85a59de6a61/artifacts
+end_time: 1697118216266
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: 5ba937bb6d894b56a79ae85a59de6a61
+run_name: capable-seal-614
+run_uuid: 5ba937bb6d894b56a79ae85a59de6a61
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1697117932631
+status: 3
+tags: []
+user_id: renatoboemer

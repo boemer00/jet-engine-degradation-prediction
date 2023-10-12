@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/8c6d836f963c4c4595b67317d8998554/artifacts
+end_time: 1697117833078
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: 8c6d836f963c4c4595b67317d8998554
+run_name: valuable-moth-11
+run_uuid: 8c6d836f963c4c4595b67317d8998554
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1697117822354
+status: 4
+tags: []
+user_id: renatoboemer

@@ -7,6 +7,16 @@ paths:
   src_transform: "./src/transform"
   tests: "./tests"
 
+data:
+  sequence_length: 50
+  test_size: 0.2
+  random_state: 42
+
+training:
+  learning_rate: 0.001
+  epochs: 100
+  batch_size: 160
+
 model:
   rnn:
     lstm:

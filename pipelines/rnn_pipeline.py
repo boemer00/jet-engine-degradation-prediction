@@ -1,4 +1,6 @@
 import os
+import yaml
+import argparse
 import mlflow
 import mlflow.keras
 import numpy as np
@@ -14,6 +16,26 @@ from src.models.rnn_model import initialize_model, train_model
 np.random.seed(42)
 tf.random.set_seed(42)
 
+# Argument Parsing
+parser = argparse.ArgumentParser(description='Train ML model with parameters from config file.')
+parser.add_argument('--config', default='config.yaml', help='Path to config.yaml')
+parser.add_argument('--learning_rate', type=float, help='Override learning rate')
+parser.add_argument('--epochs', type=int, help='Override number of epochs')
+parser.add_argument('--batch_size', type=int, help='Override batch size')
+args = parser.parse_args()
+
+# Load config file
+with open(args.config, 'r') as f:
+    config = yaml.safe_load(f)
+
+# Override parameters if provided in command-line
+sequence_length = config['data']['sequence_length']
+test_size = config['data']['test_size']
+random_state = config['data']['random_state']
+learning_rate = args.learning_rate or config['training']['learning_rate']
+epochs = args.epochs or config['training']['epochs']
+batch_size = args.batch_size or config['training']['batch_size']
+
 # Set MLflow tracking directory
 os.environ['MLFLOW_DIR'] = '/Users/renatoboemer/code/lewagon/jet-engine/mlruns'
 MLFLOW_DIR = os.environ.get('MLFLOW_DIR', './mlruns')
@@ -28,7 +50,7 @@ def evaluate_model(model, X_test, y_test):
 def main():
     mlflow.set_experiment('default_experiment')
 
-    with mlflow.start_run():   # Starting a new MLflow run
+    with mlflow.start_run():
         # 1. Data Loading
         raw_data = load_train_data()
 
@@ -39,17 +61,16 @@ def main():
         constant_column_dropper = ConstantColumnDropper()
         transformed_data = constant_column_dropper.fit_transform(raw_data_with_rul)
 
-        sequence_creator = SequenceCreator(sequence_length=50)
+        sequence_creator = SequenceCreator(sequence_length=sequence_length)
         sequences, labels = sequence_creator.transform_with_labels(transformed_data)
 
-        # Log parameter
-        mlflow.log_param('sequence_length', 50)
+        mlflow.log_param('sequence_length', sequence_length)
 
         # 3. Data Splitting and Scaling
-        X_train, X_test, y_train, y_test = train_test_split(sequences, labels, test_size=0.2, random_state=42)
-        # Log split ratio and random seed
-        mlflow.log_param('test_size', 0.2)
-        mlflow.log_param('random_state', 42)
+        X_train, X_test, y_train, y_test = train_test_split(sequences, labels, test_size=test_size, random_state=random_state)
+
+        mlflow.log_param('test_size', test_size)
+        mlflow.log_param('random_state', random_state)
 
         data_scaler = DataScaler()
         X_train_scaled = data_scaler.fit_transform(X_train)
@@ -60,7 +81,7 @@ def main():
         model = initialize_model(input_shape)
 
         # 5. Model Training
-        trained_model = train_model(model, X_train_scaled, y_train, X_test_scaled, y_test)
+        trained_model = train_model(model, X_train_scaled, y_train, X_test_scaled, y_test, learning_rate, epochs, batch_size)
 
         # 6. Model Evaluation
         rmse = evaluate_model(trained_model, X_test_scaled, y_test)
