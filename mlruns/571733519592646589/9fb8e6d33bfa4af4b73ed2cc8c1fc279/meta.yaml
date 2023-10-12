@@ -1,5 +1,5 @@
 artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/9fb8e6d33bfa4af4b73ed2cc8c1fc279/artifacts
-end_time: null
+end_time: 1697104894840
 entry_point_name: ''
 experiment_id: '571733519592646589'
 lifecycle_stage: active
@@ -10,6 +10,6 @@ source_name: ''
 source_type: 4
 source_version: ''
 start_time: 1697104568749
-status: 1
+status: 3
 tags: []
 user_id: renatoboemer
