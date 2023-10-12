@@ -45,14 +45,14 @@ This layer normalizes the activations of the previous layer at each batch, which
 - Optimizer: RMSprop optimizer. RMSprop adjusts the Adagrad method in a very simple way to reduce its aggressive, monotonically decreasing learning rate.
 - Metrics: The model tracks Mean Absolute Error (MAE) as a metric, which provides a straightforward way to observe the average error in predictions.
 
-## RNN Pipeline Parameterisation
+## RNN Pipeline Parameterization
 You can customise the training of the RNN model through command-line parameters when running the pipeline script. While the script provides a set of default configurations, you can override them using arguments.
 
 **Available Command Line Parameters:**
 The parameters you can adjust via command line include, but are not limited to:
-```--learning_rate```
-```--epochs```
-```--batch_size```
+- ```--learning_rate```
+- ```--epochs```
+- ```--batch_size```
 (Any other parameters you've included in the argparse setup)
 
 **Usage Example:**
