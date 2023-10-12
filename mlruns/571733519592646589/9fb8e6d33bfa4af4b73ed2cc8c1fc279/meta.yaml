@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/9fb8e6d33bfa4af4b73ed2cc8c1fc279/artifacts
+end_time: null
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: 9fb8e6d33bfa4af4b73ed2cc8c1fc279
+run_name: adaptable-shark-947
+run_uuid: 9fb8e6d33bfa4af4b73ed2cc8c1fc279
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1697104568749
+status: 1
+tags: []
+user_id: renatoboemer

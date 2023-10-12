@@ -48,6 +48,24 @@ This layer normalizes the activations of the previous layer at each batch, which
 ## Running Tests
 To run tests for this project, ensure you have Python installed and the required packages from *requirements.txt*. Navigate to the project directory and activate a virtual environment (recommended). Use the pytest command to execute tests. For detailed output, use ```pytest -v```. If using pytest-cov for test coverage, view the report with ```pytest --cov=src```
 
+## Experiment Tracking with MLflow
+
+This project utilises MLflow for experiment tracking within the `pipeline.py` script. To run experiments and view results:
+
+1. **Set Up MLflow**:
+   - Install MLflow with `pip install mlflow`.
+
+2. **Run the MLflow-Enabled Script**:
+   - Execute the `pipeline.py` script to kick off experiments:
+     ```bash python pipeline.py```
+
+3. **Start MLflow Server**:
+   - To visualise the experiment results, initiate the MLflow tracking server:
+     ```bashmlflow ui```
+
+4. **Access UI**:
+   - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
+
 ## Results
 Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 14.1751** using random_state=42.
 

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/b3ea38b088f54f0e80cb579856685a0a/artifacts
+end_time: 1697104027651
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: b3ea38b088f54f0e80cb579856685a0a
+run_name: rebellious-ram-439
+run_uuid: b3ea38b088f54f0e80cb579856685a0a
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1697103596219
+status: 4
+tags: []
+user_id: renatoboemer
