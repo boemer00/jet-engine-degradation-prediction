@@ -85,9 +85,9 @@ This project utilises MLflow for experiment tracking within the `pipeline.py` sc
    - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
 
 ## Results
-Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 12.8** using random_state=42.
+Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 12.8381** using random_state=42.
 
-Given that the mean RUL is approximately 108, an RMSE of around 12 represents a typical error of about 13% of the mean RUL. In comparison to the broad range of RUL values (361), this RMSE indicates a relatively modest prediction error
+Given that the mean RUL is approximately 108, an RMSE of around 13 (to the nearest integer) represents a typical error of about 13% of the mean RUL. In comparison to the broad range of RUL values (361), this RMSE indicates a relatively modest prediction error
 . Further iterations and refinements can also be pursued to improve the model's performance.
 
 ## References
