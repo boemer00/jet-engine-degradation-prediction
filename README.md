@@ -53,7 +53,6 @@ The parameters you can adjust via command line include, but are not limited to:
 - ```--learning_rate```
 - ```--epochs```
 - ```--batch_size```
-(Any other parameters you've included in the argparse setup)
 
 **Usage Example:**
 To override the default learning rate, run:
