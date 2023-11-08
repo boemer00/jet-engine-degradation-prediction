@@ -28,35 +28,47 @@ Execute the application with:
 
 `docker run -it --rm --name jet-engine-prediction-instance jet-engine-prediction`
 
-## Model Architecture
-This model is a simple recurrent neural network (RNN) constructed using Keras. The architecture can be described as follows:
+# Model Architecture
 
-**LSTM Layer**
+This model is a Transformer-based neural network implemented using Keras. The architecture is described as follows:
 
-- Type: Long Short-Term Memory (LSTM) layer.
-- Units: 30 LSTM units.
-- Activation: Hyperbolic Tangent (tanh) activation function.
-- Regularization: L2 regularization with a coefficient of 0.01 applied to the kernel.
-- Input Shape: Variable, as per input_shape (which represents (timesteps, features)).
+### Transformer Block
 
-**Dropout Layer**
+- Type: Transformer block consisting of multi-head self-attention and position-wise feed-forward networks.
 
-There is 0.2 dropout rate, which means during training, 20% of the units in the previous layer are randomly set to 0 at each update cycle. This is a regularization technique to prevent overfitting.
+- Multi-Head Attention:
+  - Number of Heads: 4 (configurable).
+  - Key Dimension: 64 (configurable).
+  - Dropout: 0.1 (configurable), applied to the attention weights.
 
-**Batch Normalization Layer**
+- Feed-Forward Network:
+  - Conv1D with 19 filters, kernel size of 1, and ReLU activation function.
+  - Dropout: Applied post-activation with a rate of 0.1 (configurable).
 
-This layer normalizes the activations of the previous layer at each batch, which can help in speeding up the training process and stabilizing the training of deep networks.
+- Residual Connections: Each sub-layer (i.e., multi-head attention, feed-forward) has a residual connection followed by layer normalization.
 
-**Dense Layer**
+- Number of Transformer Blocks: 4 (configurable).
 
-- Units: A single unit.
-- Activation: Linear activation function, which means the output is the raw weighted sum of the inputs.
+### Global Average Pooling Layer
 
-**Compilation Details**
+- Computes the average of the features dimension assuming `channels_first` data format, resulting in a fixed-length output vector which helps to mitigate overfitting and reduces the total number of parameters.
 
-- Loss Function: Mean Squared Error (MSE) which is suitable for regression tasks.
-- Optimizer: RMSprop optimizer. RMSprop adjusts the Adagrad method in a very simple way to reduce its aggressive, monotonically decreasing learning rate.
-- Metrics: The model tracks Mean Absolute Error (MAE) as a metric, which provides a straightforward way to observe the average error in predictions.
+### Dense Layers
+
+- After the Global Average Pooling, the model includes dense layers with the following units: `[128]` (configurable). Each dense layer is followed by a ReLU activation and dropout for regularization.
+
+### Output Layer
+
+- Units: A single unit with no activation function (linear), suitable for regression tasks like predicting the Remaining Useful Life (RUL) in a jet engine.
+
+## Compilation Details
+
+- Loss Function: Mean Squared Error (MSE), which is suitable for regression tasks.
+- Optimizer: Adam optimizer, which is computationally efficient and has little memory requirement. The learning rate is configurable.
+- Metrics: The model evaluates Mean Absolute Error (MAE) during training, which provides a straightforward way to measure the average magnitude of errors in a set of predictions, without considering their direction.
+
+Please note that the hyperparameters such as the number of heads, the dimension of the key, the number of transformer blocks, and the dropout rates are all configurable and can be tuned according to the specific requirements of the task at hand.
+
 
 ## RNN Pipeline Parameterization
 You can customise the training of the RNN model through command-line parameters when running the pipeline script. While the script provides a set of default configurations, you can override them using arguments.
