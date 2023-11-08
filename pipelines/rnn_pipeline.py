@@ -78,7 +78,19 @@ def main():
 
         # 4. Model Initialisation
         input_shape = (X_train_scaled.shape[1], X_train_scaled.shape[2])
-        model = initialize_model(input_shape)
+
+        head_size = config['model']['head_size']
+        num_heads = config['model']['num_heads']
+        ff_dim = config['model']['ff_dim']
+        num_transformer_blocks = config['model']['num_transformer_blocks']
+        mlp_units = config['model']['mlp_units']
+        dropout = config['model']['dropout']
+        mlp_dropout = config['model']['mlp_dropout']
+
+        model = initialize_model(input_shape, head_size, num_heads, ff_dim,
+                                 num_transformer_blocks, mlp_units, dropout, mlp_dropout)
+
+        # model = initialize_model(input_shape) lstm version
 
         # 5. Model Training
         trained_model = train_model(model, X_train_scaled, y_train, X_test_scaled, y_test, learning_rate, epochs, batch_size)

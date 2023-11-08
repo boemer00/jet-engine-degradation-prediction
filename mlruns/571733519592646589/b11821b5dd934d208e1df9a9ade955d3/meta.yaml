@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/b11821b5dd934d208e1df9a9ade955d3/artifacts
+end_time: 1699466359168
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: b11821b5dd934d208e1df9a9ade955d3
+run_name: bittersweet-ram-269
+run_uuid: b11821b5dd934d208e1df9a9ade955d3
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1699466348573
+status: 4
+tags: []
+user_id: renatoboemer

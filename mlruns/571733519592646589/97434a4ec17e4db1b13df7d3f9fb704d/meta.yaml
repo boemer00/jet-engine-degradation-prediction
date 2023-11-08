@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/97434a4ec17e4db1b13df7d3f9fb704d/artifacts
+end_time: 1699466873854
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: 97434a4ec17e4db1b13df7d3f9fb704d
+run_name: masked-fowl-199
+run_uuid: 97434a4ec17e4db1b13df7d3f9fb704d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1699466863099
+status: 4
+tags: []
+user_id: renatoboemer

@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/1038faa258dc433c9f1d2e00f542336f/artifacts
+end_time: 1699466766677
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: 1038faa258dc433c9f1d2e00f542336f
+run_name: adventurous-eel-934
+run_uuid: 1038faa258dc433c9f1d2e00f542336f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1699466756978
+status: 4
+tags: []
+user_id: renatoboemer

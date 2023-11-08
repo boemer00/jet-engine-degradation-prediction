@@ -15,6 +15,19 @@ You can clone this repository using git:
 
 Then, donwload the dataset directly from [NASA's repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
 
+## Docker Usage
+To simplify the setup and execution process, Docker can be used:
+
+### Build the Docker Image
+Navigate to the directory containing the Dockerfile and execute:
+
+`docker build -t jet-engine-prediction .`
+
+### Run the Application in a Docker Container
+Execute the application with:
+
+`docker run -it --rm --name jet-engine-prediction-instance jet-engine-prediction`
+
 ## Model Architecture
 This model is a simple recurrent neural network (RNN) constructed using Keras. The architecture can be described as follows:
 

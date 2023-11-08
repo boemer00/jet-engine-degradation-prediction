@@ -1,0 +1,15 @@
+artifact_uri: file:///Users/renatoboemer/code/lewagon/jet-engine/mlruns/571733519592646589/0805592353254bd2b4b0741738f9adef/artifacts
+end_time: 1699470403827
+entry_point_name: ''
+experiment_id: '571733519592646589'
+lifecycle_stage: active
+run_id: 0805592353254bd2b4b0741738f9adef
+run_name: sneaky-boar-103
+run_uuid: 0805592353254bd2b4b0741738f9adef
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1699467342883
+status: 3
+tags: []
+user_id: renatoboemer
