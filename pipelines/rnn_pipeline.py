@@ -6,7 +6,7 @@ import mlflow.keras
 import numpy as np
 import tensorflow as tf
 from datetime import datetime
-from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.model_selection import train_test_split
 from src.data.data_loading import load_train_data
 from src.transform.data_transformation import RULAdder, ConstantColumnDropper, SequenceCreator, DataScaler
@@ -41,11 +41,11 @@ os.environ['MLFLOW_DIR'] = '/Users/renatoboemer/code/lewagon/jet-engine/mlruns'
 MLFLOW_DIR = os.environ.get('MLFLOW_DIR', './mlruns')
 mlflow.set_tracking_uri(f'file://{MLFLOW_DIR}')
 
-def evaluate_model(model, X_test, y_test):
+def evaluate_model_mae(model, X_test, y_test):
     predictions = model.predict(X_test)
-    rmse = mean_squared_error(y_test, predictions, squared=False)
-    print(f'Test RMSE: {rmse:.4f}')
-    return rmse
+    mae = mean_absolute_error(y_test, predictions)
+    print(f'Test MAE: {mae:.4f}')
+    return mae
 
 def main():
     mlflow.set_experiment('default_experiment')
@@ -95,9 +95,9 @@ def main():
         # 5. Model Training
         trained_model = train_model(model, X_train_scaled, y_train, X_test_scaled, y_test, learning_rate, epochs, batch_size)
 
-        # 6. Model Evaluation
-        rmse = evaluate_model(trained_model, X_test_scaled, y_test)
-        mlflow.log_metric('rmse', rmse)
+        # 6. Model Evaluation for MAE
+        mae = evaluate_model_mae(trained_model, X_test_scaled, y_test)
+        mlflow.log_metric('mae', mae)
 
         # 7. Save the trained model with timestamped filename
         save_dir = './models/saved'
