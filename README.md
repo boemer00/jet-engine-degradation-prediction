@@ -6,8 +6,7 @@ Prognostics and health management is an important topic in industry for predicti
 Engine degradation simulation was carried out using C-MAPSS. Four different were sets simulated under different combinations of operational conditions and fault modes. Records several sensor channels to characterize fault evolution. The data set was provided by the Prognostics CoE at NASA Ames.
 
 ## Prediction Goal
-The goal is to predict the remaining useful life (RUL) of turbo fan jet engines using NASA's C-MAPSS simulated sensor data.
-RUL is equivalent of number of flights remained for the engine after the last datapoint in the test dataset.
+The goal is to predict the remaining useful life (RUL) of turbo fan jet engines using NASA's C-MAPSS simulated sensor data. The RUL is equivalent to the number of flights remained for an engine after the last datapoint in the test dataset.
 
 ## Installation
 You can clone this repository using git:
@@ -109,10 +108,9 @@ This project utilises MLflow for experiment tracking within the `pipeline.py` sc
    - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
 
 ## Results
-Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Root Mean Squared Error (RMSE) of 12.8381** using random_state=42.
+Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Mean Absolute Error (MAE) of 5.8521** versus the LSTM's baseline of 12.8381.
 
-Given that the mean RUL is approximately 108, an RMSE of around 13 (to the nearest integer) represents a typical error of about 13% of the mean RUL. In comparison to the broad range of RUL values (361), this RMSE indicates a relatively modest prediction error
-. Further iterations and refinements can also be pursued to improve the model's performance.
+Given that the mean RUL is approximately 108, an MAE of around 6 (to the nearest integer) represents a typical error of about 6% of the mean RUL. In comparison to the broad range of RUL values (361), this MAE indicates a relatively good prediction error. Nevertheless, further iterations and refinements can also be pursued to improve the model's performance.
 
 ## References
 A. Saxena, K. Goebel, D. Simon, and N. Eklund, *Damage Propagation Modeling for Aircraft Engine Run-to-Failure Simulation*, in the Proceedings of the 1st International Conference on Prognostics and Health Management (PHM08), Denver CO, Oct 2008.

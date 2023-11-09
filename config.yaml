@@ -7,37 +7,11 @@ paths:
   src_transform: "./src/transform"
   tests: "./tests"
 
-# data:
-#   sequence_length: 50
-#   test_size: 0.2
-#   random_state: 42
-
-# training:
-#   learning_rate: 0.001
-#   epochs: 100
-#   batch_size: 160
-
-# model:
-#   rnn:
-#     lstm:
-#       units: 30
-#       activation: 'tanh'
-#       regularizer:
-#         type: 'l2'
-#         value: 0.01
-#     dropout: 0.2
-#     batch_normalization: true
-#     dense:
-#       units: 1
-#       activation: 'linear'
-#     compile:
-#       loss: 'mean_squared_error'
-#       optimizer: 'rmsprop'
-      # metrics: ['mean_absolute_error']
 data:
   sequence_length: 30
   test_size: 0.2
   random_state: 42
+
 model:
   head_size: 64
   num_heads: 4
@@ -46,6 +20,7 @@ model:
   mlp_units: [128]
   dropout: 0.1
   mlp_dropout: 0.1
+
 training:
   learning_rate: 0.001
   epochs: 100

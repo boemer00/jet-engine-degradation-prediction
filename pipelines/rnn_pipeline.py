@@ -6,7 +6,7 @@ import mlflow.keras
 import numpy as np
 import tensorflow as tf
 from datetime import datetime
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import mean_absolute_error
 from sklearn.model_selection import train_test_split
 from src.data.data_loading import load_train_data
 from src.transform.data_transformation import RULAdder, ConstantColumnDropper, SequenceCreator, DataScaler
