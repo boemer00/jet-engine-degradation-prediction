@@ -14,6 +14,22 @@ You can clone this repository using git:
 
 Then, donwload the dataset directly from [NASA's repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
 
+## API Integration
+The project now includes a FastAPI integration, allowing for model predictions through a REST API.
+
+### Running the API Server
+
+- Navigate to the project root directory.
+- Start the FastAPI server by running:
+`uvicorn src.app.app:app --reload`
+
+This will host the API at `http://127.0.0.1:8000`.
+
+### Interacting with the API
+Access the auto-generated Swagger UI at `http://127.0.0.1:8000/docs` for an interactive interface to test API endpoints.
+
+Use tools like curl or Postman to send POST requests to `http://127.0.0.1:8000/predict` with JSON-formatted input data.
+
 ## Docker Usage
 To simplify the setup and execution process, Docker can be used:
 

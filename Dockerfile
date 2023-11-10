@@ -10,8 +10,11 @@ COPY . .
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Install Uvicorn for serving the application
+RUN pip install uvicorn
 
-# Run the application command when the container launches
-CMD ["python", "./src/app.py"]
+# Make port 8000 available to the world outside this container
+EXPOSE 8000
+
+# Run the Uvicorn server when the container launches
+CMD ["uvicorn", "src.app.app:app", "--host", "0.0.0.0", "--port", "8000"]
