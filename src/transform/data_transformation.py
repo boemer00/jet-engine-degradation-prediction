@@ -1,5 +1,4 @@
 import numpy as np
-from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 
@@ -56,10 +55,27 @@ class SequenceCreator(BaseEstimator, TransformerMixin):
     def fit(self, df, y=None):
         return self
 
+    # def transform(self, df):
+    #     """
+    #     This function will only return sequences.
+    #     Useful when running predictions or generating sequences.
+    #     """
+    #     sequences = []
+
+    #     for engine in df['Engine'].unique():
+    #         engine_data = df[df['Engine'] == engine].reset_index(drop=True)
+
+    #         for i in range(len(engine_data) - self.sequence_length + 1):
+    #             sequence = engine_data.iloc[i:i+self.sequence_length].drop(['RUL'], axis=1)
+
+    #             sequences.append(sequence)
+
+    #     return np.array(sequences)
     def transform(self, df):
         """
         This function will only return sequences.
         Useful when running predictions or generating sequences.
+        The function checks if 'RUL' column is present and handles accordingly.
         """
         sequences = []
 
@@ -67,12 +83,15 @@ class SequenceCreator(BaseEstimator, TransformerMixin):
             engine_data = df[df['Engine'] == engine].reset_index(drop=True)
 
             for i in range(len(engine_data) - self.sequence_length + 1):
-                sequence = engine_data.iloc[i:i+self.sequence_length].drop(['RUL'], axis=1)
+                sequence = engine_data.iloc[i:i+self.sequence_length]
+
+                # Drop 'RUL' column if it exists
+                if 'RUL' in sequence.columns:
+                    sequence = sequence.drop(['RUL'], axis=1)
 
                 sequences.append(sequence)
 
         return np.array(sequences)
-
 
     def transform_with_labels(self, df):
         """
