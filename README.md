@@ -124,9 +124,9 @@ This project utilises MLflow for experiment tracking within the `pipeline.py` sc
    - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
 
 ## Results
-Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, key insights emerged. The training data displays a mean RUL of 107.81 cycles, a median of 103.00 cycles, and spans a range from 0 to 361 cycles. When tested, the model achieved a Mean Absolute Error (MAE) of 5.8521 cycles, compared to the LSTM's baseline MAE of 12.8381 cycles.
+Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, key insights emerged. The training data displays a mean RUL of 107.81 cycles, a median of 103.00 cycles, and spans a range from 0 to 361 cycles. When tested, the model achieved a **Mean Absolute Error (MAE) of 5.8521 cycles**, compared to the LSTM's baseline MAE of 12.8381 cycles.
 
-With a mean RUL of approximately 108 cycles, an MAE of around 6 cycles (rounded to the nearest integer) translates to a typical prediction error of about 5.6% relative to the mean RUL. Considering the extensive range of RUL values (up to 361 cycles), this MAE suggests a relatively accurate prediction capability. However, opportunities for further improvements and refinements exist, with the potential to enhance the model's predictive accuracy and reliability.
+With a mean RUL of approximately 108 cycles, an MAE of around 6 cycles (rounded to the nearest integer) translates to a typical prediction error of about 5.8% relative to the mean RUL. Considering the extensive range of RUL values (up to 361 cycles), this MAE suggests a relatively accurate prediction capability. However, opportunities for further improvements and refinements exist, with the potential to enhance the model's predictive accuracy and reliability.
 
 ## References
 A. Saxena, K. Goebel, D. Simon, and N. Eklund, *Damage Propagation Modeling for Aircraft Engine Run-to-Failure Simulation*, in the Proceedings of the 1st International Conference on Prognostics and Health Management (PHM08), Denver CO, Oct 2008.
