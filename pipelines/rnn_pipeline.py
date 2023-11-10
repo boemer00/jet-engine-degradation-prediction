@@ -90,8 +90,6 @@ def main():
         model = initialize_model(input_shape, head_size, num_heads, ff_dim,
                                  num_transformer_blocks, mlp_units, dropout, mlp_dropout)
 
-        # model = initialize_model(input_shape) lstm version
-
         # 5. Model Training
         trained_model = train_model(model, X_train_scaled, y_train, X_test_scaled, y_test, learning_rate, epochs, batch_size)
 
