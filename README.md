@@ -124,9 +124,9 @@ This project utilises MLflow for experiment tracking within the `pipeline.py` sc
    - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
 
 ## Results
-Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, several key observations have been made. The training data exhibits a mean RUL of 107.81, a median of 103.00, and spans a range from 0 to 361. The model, when tested, yielded a **Mean Absolute Error (MAE) of 5.8521** versus the LSTM's baseline of 12.8381.
+Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, key insights emerged. The training data displays a mean RUL of 107.81 cycles, a median of 103.00 cycles, and spans a range from 0 to 361 cycles. When tested, the model achieved a Mean Absolute Error (MAE) of 5.8521 cycles, compared to the LSTM's baseline MAE of 12.8381 cycles.
 
-Given that the mean RUL is approximately 108, an MAE of around 6 (to the nearest integer) represents a typical error of about 6% of the mean RUL. In comparison to the broad range of RUL values (361), this MAE indicates a relatively good prediction error. Nevertheless, further iterations and refinements can also be pursued to improve the model's performance.
+With a mean RUL of approximately 108 cycles, an MAE of around 6 cycles (rounded to the nearest integer) translates to a typical prediction error of about 5.6% relative to the mean RUL. Considering the extensive range of RUL values (up to 361 cycles), this MAE suggests a relatively accurate prediction capability. However, opportunities for further improvements and refinements exist, with the potential to enhance the model's predictive accuracy and reliability.
 
 ## References
 A. Saxena, K. Goebel, D. Simon, and N. Eklund, *Damage Propagation Modeling for Aircraft Engine Run-to-Failure Simulation*, in the Proceedings of the 1st International Conference on Prognostics and Health Management (PHM08), Denver CO, Oct 2008.
