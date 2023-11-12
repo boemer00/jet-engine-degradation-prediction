@@ -1,6 +1,6 @@
 version: 2.1
 
-worfklows:
+workflows:
   test-deploy:
     jobs:
       - test
