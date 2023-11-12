@@ -123,6 +123,15 @@ This project utilises MLflow for experiment tracking within the `pipeline.py` sc
 4. **Access UI**:
    - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
 
+## CI/CD Integration
+The project uses CircleCI for continuous integration, enhancing code quality and automating tests. It includes:
+
+- **Automated Tests**: Runs tests automatically with each commit.
+  
+- **Build Verification**: Confirms successful builds for all changes.
+  
+- **Deployment Automation**: Streamlines the deployment process for updated builds.
+
 ## Results
 Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, key insights emerged. The training data displays a mean RUL of 107.81 cycles, a median of 103.00 cycles, and spans a range from 0 to 361 cycles. When tested, the model achieved a **Mean Absolute Error (MAE) of 5.8521 cycles**, compared to the LSTM's baseline MAE of 12.8381 cycles.
 
