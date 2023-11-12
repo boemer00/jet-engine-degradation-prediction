@@ -1,0 +1,14 @@
+version: 2.1
+
+worfklows:
+  test-deploy:
+    jobs:
+      - test
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.10.6
+    steps:
+      - checkout
+      - run: python --version
