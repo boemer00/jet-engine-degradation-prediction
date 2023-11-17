@@ -28,8 +28,6 @@ This will host the API at `http://127.0.0.1:8000`.
 ### Interacting with the API
 Access the auto-generated Swagger UI at `http://127.0.0.1:8000/docs` for an interactive interface to test API endpoints.
 
-Use tools like curl or Postman to send POST requests to `http://127.0.0.1:8000/predict` with JSON-formatted input data.
-
 ## Docker Usage
 To simplify the setup and execution process, Docker can be used:
 
@@ -60,7 +58,7 @@ This model is a Transformer-based neural network implemented using Keras. The ar
   - Conv1D with 19 filters, kernel size of 1, and ReLU activation function.
   - Dropout: Applied post-activation with a rate of 0.1 (configurable).
 
-- Residual Connections: Each sub-layer (i.e., multi-head attention, feed-forward) has a residual connection followed by layer normalization.
+- Residual Connections: Each sub-layer (*i.e.*, multi-head attention, feed-forward) has a residual connection followed by layer normalization.
 
 - Number of Transformer Blocks: 4 (configurable).
 
@@ -96,7 +94,8 @@ The parameters you can adjust via command line include, but are not limited to:
 
 **Usage Example:**
 To override the default learning rate, run:
-```python pipelines/rnn_pipeline.py --learning_rate 0.1``
+
+```python pipelines/rnn_pipeline.py --learning_rate 0.1```
 
 **Default Configurations:**
 For a comprehensive list of default configurations and their values, please refer to the ```config.yaml``` file in the project directory.
@@ -122,6 +121,13 @@ This project utilises MLflow for experiment tracking within the `pipeline.py` sc
 
 4. **Access UI**:
    - Visit `http://127.0.0.1:5000` to view the MLflow UI and inspect your experiment runs.
+
+## CI/CD Integration
+The project uses CircleCI for continuous integration, enhancing code quality and automating tests. It includes:
+
+- **Automated Tests**: Runs tests automatically with each commit.
+- **Build Verification**: Confirms successful builds for all changes.
+- **Deployment Automation**: Streamlines the deployment process for updated builds.
 
 ## Results
 Upon evaluating the Remaining Useful Life (RUL) prediction model against the training dataset, key insights emerged. The training data displays a mean RUL of 107.81 cycles, a median of 103.00 cycles, and spans a range from 0 to 361 cycles. When tested, the model achieved a **Mean Absolute Error (MAE) of 5.8521 cycles**, compared to the LSTM's baseline MAE of 12.8381 cycles.
