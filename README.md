@@ -12,7 +12,7 @@ The goal is to predict the remaining useful life (RUL) of turbo fan jet engines 
 You can clone this repository using git:
 ```$ git clone https://github.com/boemer00/jet-engine-degradation-prediction.git```
 
-Then, donwload the dataset directly from [NASA's repository](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/).
+Then, donwload the dataset directly from [NASA's repository](https://data.nasa.gov/Aerospace/CMAPSS-Jet-Engine-Simulated-Data/ff5v-kuh6).
 
 ## API Integration
 The project now includes a FastAPI integration, allowing for model predictions through a REST API.

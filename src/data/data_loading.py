@@ -34,7 +34,9 @@ col_names = index_names + setting_names + sensor_names
 
 def load_data(file_name, col_names=None):
     file_path = os.path.join(DATA_DIR, file_name)
-    return pd.read_csv(file_path, sep='\s+', header=None, names=col_names)
+    data = pd.read_csv(file_path, sep='\s+', header=None, names=col_names)
+    print(f'Data loaded successfully ✅')
+    return data
 
 def load_train_data():
     return load_data('train_FD001.txt', col_names=col_names)
